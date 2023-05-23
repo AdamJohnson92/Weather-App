@@ -1,0 +1,44 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+header {
+    background-color: teal;
+    color:white;
+    padding: 30px;
+    text-align: center;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid teal;
+    padding: 40px;
+    margin: 30px;
+    width: 50%;
+}
+
+label{
+    padding: 10px 0 10px 0;
+}
+
+#results{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid teal;
+    padding: 40px;
+    margin: 30px;
+    width: 50%;
+}
+
+h2{
+    width: 50%;
+}
+

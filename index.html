@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Application</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <header> <h1>5-Day Weather Application </h1> </header>
+    <main><aside>
+        <form id="form">
+            <label>Enter City Name: <br>
+                <input type="text" id="userInput" name="userInput">
+                </input>
+            </label><br>
+           <!--  <label>Enter State Code:</label><br>
+            <input type="text" id="stateCode" name="stateCode">
+            </input><br>-->
+            <button type="submit" id="submitBtn">Search</button>
+        </form>
+    </aside>
+    <div id="results"> 
+        <h2 id="searchedCity">{searchedCity}</h2>
+    </div>
+</main>
+<script src="./assets/script.js"></script>
+</body>
+</html>
