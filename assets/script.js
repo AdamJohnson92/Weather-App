@@ -2,23 +2,38 @@ var aside = document.querySelector("aside")
 var submitBtnEl = document.querySelector("#form")
 var userInputEl = document.querySelector("#userInput")
 var searchedCity = document.querySelector("#searchedCity")
+var geoLatitude = ""
+var geoLongitude = ""
 
 
-function getApiTest() {
+function getAPITest() {
     var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + userInputEl.value +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
 
     fetch(latLonCoordsURL)
     .then(function(response){
         return response.json()
-        
     }) .then(function(data){
         console.log(data)
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i].lat);
-            console.log(data[i].lon)
+            geoLatitude = data[i].lat;
+            geoLongitude = data[i].lon;
+            console.log(geoLatitude)
+            console.log(geoLongitude)
           }
     })
+
+    var weatherUrl = "api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&appid=42c66a48a76a8c63ca42a8a780c249a4"
+
+    fetch(weatherUrl)
+    .then(function(response){
+        return response.json()
+    }) .then(function(data){
+        console.log(data)
+    })
+
 }
+
+
 
 // function getApi() {
 //     var latLonCoords = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityNameEl + "&limit=5&appid=42c66a48a76a8c63ca42a8a780c249a4";
@@ -34,7 +49,7 @@ function submitHandler(event){
     console.log(userInputEl.value)
     preSearchedCities.push(userInputEl.value)
     saveSearchedCity()
-    getApiTest()
+    getAPITest()
 }
 
 // function displayPreSearchedCities(){
