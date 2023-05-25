@@ -1,6 +1,7 @@
 *{
     margin:0;
     padding:0;
+    border-radius: 5px;
 }
 
 header {
@@ -54,6 +55,7 @@ button{
 
 h2{
     width: 50%;
+    text-align: center;
 }
 
 #nowWeather{
@@ -67,9 +69,8 @@ p{
     font-size: 14px;
 }
 
-#forecast{
-    border: 5px solid teal;
-    margin-top: 20px;
+#forecastDiv{
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -79,10 +80,9 @@ p{
 }
 
 .forecastItem{
-    width:200px;
-    height:200px;
-    background-color: teal;
-    margin: 20px;
-    justify-content: center;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(0, 80, 80);
+    margin: 10px;
     color: white;
 }

@@ -13,8 +13,6 @@ var windNow = document.querySelector("#currentWindSpeed")
 function getAPITest() {
     var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + userInputEl.value +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
 
-    
-
     fetch(latLonCoordsURL)
     .then(function(response){
         return response.json()
@@ -40,6 +38,9 @@ function getWeatherNow(){
         return response.json();
     }) .then(function(data){
         console.log(data);
+        var todayDateTime = document.querySelector("#currentDate")
+        var today = dayjs.unix(data.dt)
+        todayDateTime.textContent = today
         tempNow.textContent = data.main.temp;
         humNow.textContent = data.main.humidity;
         windNow.textContent = data.wind.speed;
@@ -48,13 +49,16 @@ function getWeatherNow(){
 
 function getWeather5(){
 var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
+    
     fetch(weather5Url)
     .then(function(response){
         return response.json()
     }) .then(function(data){
         console.log(data)
-        for (let j = 0; j < 5; j+8){
+        for (let j = 0; j < 5; j++){
           var dynoBoxDiv = document.createElement("div")
+          var dynoDate = document.createElement("p")
+          //dynoDate = "Date: " + data.list.j.dt_txt
           dynoBoxDiv.setAttribute("class", "forecastItem") 
           forecastDiv.appendChild(dynoBoxDiv) 
         }
@@ -63,11 +67,11 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
 }
 
 //would need to convert date from Unix from weather fetch instead of dayjs right now
-function displayTime() {
-    var todayDateTime = document.querySelector("#currentDate")
-    var today = dayjs().format('MMM DD, YYYY HH:mm a');
-    todayDateTime.textContent = today
-  }
+// function displayTime() {
+//     var todayDateTime = document.querySelector("#currentDate")
+//     var today = dayjs.unix()
+//     todayDateTime.textContent = today
+//   }
 
 var preSearchedCities = JSON.parse(localStorage.getItem("cityName")) || []
 
@@ -78,10 +82,10 @@ function submitHandler(event){
     preSearchedCities.push(userInputEl.value)
     saveSearchedCity();
     getAPITest();
-    displayTime();
+    //displayTime();
 }
 
-//Must have eventListener add function to these buttons
+//Must have eventListener to add function to these buttons
 function displayPreSearchedCities(){
     for (var i = 0; i < preSearchedCities.length; i++) {
         var cityButton = document.createElement("button")
