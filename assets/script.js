@@ -14,6 +14,7 @@ var windNow = document.querySelector("#currentWindSpeed")
 var geoLatitude = ""
 var geoLongitude = ""
 
+//Displays the current date and time in the header
 function displayTime() {
     var localDateTime = document.querySelector("#localDateTime")
     var today = dayjs().format('MMM DD, YYYY HH:mm');
@@ -22,7 +23,10 @@ function displayTime() {
 
   displayTime()
 
-//Tutor Help From Faran Navazi to change parameters to city so that the function can pass through either the user input, or the buttons created from previous searches. 
+
+//This function is the primary function that executes on a submit event from the user that pulls the latitude and longitude of a queried city name. 
+
+                //Tutor Help From Faran Navazi to change parameters to city so that the function can pass through either the user input, or the buttons created from previous searches. 
 function getAPITest(city) {
     var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
     
@@ -38,13 +42,14 @@ function getAPITest(city) {
             console.log(geoLatitude)
             console.log(geoLongitude)
         } 
-        //assistance with chaining fetch requests courtesty of instructor Becky Goldstein
+                //assistance with chaining fetch requests courtesty of instructor Becky Goldstein
     }).then(function(){
             getWeatherNow()
             getWeather5()
         })
 }
 
+//This function pulls the current weather data and displays it on screen.
 function getWeatherNow(){
     var weatherNowUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
 
@@ -63,6 +68,7 @@ function getWeatherNow(){
     })
 }
 
+//This function pulls the weather data for the next 5 days and dynamically creates the elements that the data will be displayed in.
 function getWeather5(){
 var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
     
@@ -71,8 +77,10 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
         return response.json()
     }) .then(function(data){
         console.log(data)
-        //tutor Assistance from Faran Navazi
+        
+                //tutor Assistance from Faran Navazi  for clearing any dynamically created divs from previous searches without reloading the page. 
             forecastDiv.innerHTML = ""
+
         for (let j = 0; j < data.list.length; j++){
             if ((j === 6 ) ||
             (j === 14) ||
@@ -105,12 +113,13 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
 
 }
 
+//The array that is created from items stored in local storage
 var preSearchedCities = JSON.parse(localStorage.getItem("cityName")) || []
 
 function submitHandler(event){
     event.preventDefault()
-    
     console.log(userInputEl.value)
+            //Assistance from Faran Navazi
     var exists = preSearchedCities.includes(userInputEl.value)
     if (!exists) {
        preSearchedCities.push(userInputEl.value) 
@@ -118,7 +127,7 @@ function submitHandler(event){
     saveSearchedCity();
     getAPITest(userInputEl.value);
 }
-
+            //Assistance from Faran Navazi for dynamically adding an even listener to a dynamically created button.
 function displayPreSearchedCities(){
     for (var i = 0; i < preSearchedCities.length; i++) {
         var cityButton = document.createElement("button")
@@ -131,6 +140,7 @@ function displayPreSearchedCities(){
 
 displayPreSearchedCities()
 
+            //Assistance by Faran Navazi for applying event.target and pass it through the getAPITest function again without re-writing any of the code for this function. 
 function searchAgain(event){
     console.log (event.target.textContent)
     getAPITest(event.target.textContent)
