@@ -21,17 +21,13 @@ function getAPITest() {
             geoLongitude = data[i].lon;
             console.log(geoLatitude)
             console.log(geoLongitude)
-        }
-       // return fetch(data.weatherUrl)
-    })
-        // .then(function(response){
-        //     return response.json()
-        // })
-        // .then (function(data){
-        //     console.log(data)
-        // })
-
-var weatherUrl = "api.openweathermap.org/data/2.5/forecast/daily?lat=" + geoLatitude + "&lon=" + geoLongitude + "&appid=42c66a48a76a8c63ca42a8a780c249a4"
+        } 
+    }).then(function(){
+            getWeather()
+        })
+}
+function getWeather(){
+var weatherUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&appid=42c66a48a76a8c63ca42a8a780c249a4"
 
     fetch(weatherUrl)
     .then(function(response){
@@ -41,6 +37,7 @@ var weatherUrl = "api.openweathermap.org/data/2.5/forecast/daily?lat=" + geoLati
     })
 
 }
+
 
 
 
