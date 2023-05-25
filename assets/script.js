@@ -75,6 +75,9 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
           var dynoBoxDiv = document.createElement("div")
           var dynoDate = document.createElement("p")
           dynoDate.textContent = "Date: " + data.list[j].dt_txt
+          var dynoIcon = document.createElement("img")
+          dynoIcon.setAttribute("id", "forecastItemIcon")
+          dynoIcon.setAttribute("src", `https://openweathermap.org/img/wn/${data.list[j].weather[0].icon}@2x.png`)
           var dynoTemp = document.createElement("p")
           dynoTemp.textContent = "Temperature: " + data.list[j].main.temp + " °F"
           var dynoHum = document.createElement("p")
@@ -83,6 +86,7 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
           dynoWindSpeed.textContent = "Wind Speed: " + data.list[j].wind.speed + " MPH"
           dynoBoxDiv.setAttribute("class", "forecastItem") 
           forecastDiv.appendChild(dynoBoxDiv) 
+          dynoDate.appendChild(dynoIcon)
           dynoBoxDiv.appendChild(dynoDate)
           dynoBoxDiv.appendChild(dynoTemp)
           dynoBoxDiv.appendChild(dynoHum)

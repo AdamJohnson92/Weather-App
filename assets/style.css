@@ -42,11 +42,16 @@ form{
     width: 50%;
     background-color: turquoise;
     font-weight: bold;
+    margin-left: 5px;
 }
 
 label{
     padding: 10px 0 10px 0;
     font-weight: bold;
+}
+
+#userInput {
+    padding: 5px;
 }
 
 button{
@@ -112,4 +117,9 @@ p{
     margin: 10px;
     color: white;
     font-size: 12px;
+}
+
+#forecastItemIcon{
+    width:25px;
+    height: 25px;
 }
