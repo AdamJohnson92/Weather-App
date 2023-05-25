@@ -1,17 +1,22 @@
+//Selectors
 var aside = document.querySelector("aside")
 var submitBtnEl = document.querySelector("#form")
 var userInputEl = document.querySelector("#userInput")
 var searchedCity = document.querySelector("#searchedCity")
 var forecastDiv = document.querySelector("#forecastDiv")
-var geoLatitude = ""
-var geoLongitude = ""
+var iconNow = document.querySelector("#currentIcon")
 var tempNow = document.querySelector("#currentTemp")
 var humNow = document.querySelector("#currentHumidity")
 var windNow = document.querySelector("#currentWindSpeed")
 
+//variables
+var geoLatitude = ""
+var geoLongitude = ""
 
-function getAPITest() {
-    var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + userInputEl.value +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
+
+
+function getAPITest(city) {
+    var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
 
     fetch(latLonCoordsURL)
     .then(function(response){
@@ -41,6 +46,7 @@ function getWeatherNow(){
         var todayDateTime = document.querySelector("#currentDate")
         var today = dayjs.unix(data.dt)
         todayDateTime.textContent = today
+        iconNow.setAttribute("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`)
         tempNow.textContent = data.main.temp;
         humNow.textContent = data.main.humidity;
         windNow.textContent = data.wind.speed;
@@ -55,13 +61,32 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
         return response.json()
     }) .then(function(data){
         console.log(data)
-        for (let j = 0; j < 5; j++){
+        //tutor Assistance
+            forecastDiv.innerHTML = ""
+        for (let j = 0; j < data.list.length; j++){
+            if ((j === 6 ) ||
+            (j === 14) ||
+            (j === 22) ||
+            (j === 30) ||
+            (j === 38)) {
+
           var dynoBoxDiv = document.createElement("div")
           var dynoDate = document.createElement("p")
-          //dynoDate = "Date: " + data.list.j.dt_txt
+          dynoDate.textContent = "Date: " + data.list[j].dt_txt
+          var dynoTemp = document.createElement("p")
+          dynoTemp.textContent = "Temperature: " + data.list[j].main.temp + " °F"
+          var dynoHum = document.createElement("p")
+          dynoHum.textContent = "Humidity: " + data.list[j].main.humidity + "%"
+          var dynoWindSpeed = document.createElement("p")
+          dynoWindSpeed.textContent = "Wind Speed: " + data.list[j].wind.speed + " MPH"
           dynoBoxDiv.setAttribute("class", "forecastItem") 
           forecastDiv.appendChild(dynoBoxDiv) 
+          dynoBoxDiv.appendChild(dynoDate)
+          dynoBoxDiv.appendChild(dynoTemp)
+          dynoBoxDiv.appendChild(dynoHum)
+          dynoBoxDiv.appendChild(dynoWindSpeed)
         }
+    }
     })
 
 }
@@ -79,9 +104,12 @@ function submitHandler(event){
     event.preventDefault()
     searchedCity.textContent = userInputEl.value
     console.log(userInputEl.value)
-    preSearchedCities.push(userInputEl.value)
+    var exists = preSearchedCities.includes(userInputEl.value)
+    if (!exists) {
+       preSearchedCities.push(userInputEl.value) 
+    }
     saveSearchedCity();
-    getAPITest();
+    getAPITest(userInputEl.value);
     //displayTime();
 }
 
@@ -91,11 +119,19 @@ function displayPreSearchedCities(){
         var cityButton = document.createElement("button")
         var cityButtonText = preSearchedCities[i]
         cityButton.textContent = cityButtonText
+        cityButton.onclick = searchAgain 
         aside.appendChild(cityButton)
       } 
 }
 
 displayPreSearchedCities()
+
+function searchAgain(event){
+    console.log (event.target.textContent)
+    getAPITest(event.target.textContent)
+}
+
+
 
 function saveSearchedCity(){
     
