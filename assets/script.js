@@ -1,4 +1,5 @@
 //Selectors
+var localDateTime = document.querySelector("#localDateTime")
 var aside = document.querySelector("aside")
 var submitBtnEl = document.querySelector("#form")
 var userInputEl = document.querySelector("#userInput")
@@ -13,6 +14,13 @@ var windNow = document.querySelector("#currentWindSpeed")
 var geoLatitude = ""
 var geoLongitude = ""
 
+function displayTime() {
+    var localDateTime = document.querySelector("#localDateTime")
+    var today = dayjs().format('MMM DD, YYYY HH:mm:ss');
+    localDateTime.textContent = today
+  }
+
+  displayTime()
 
 //Tutor Help From Faran Navazi to change parameters to city so that the function can pass through either the user input, or the buttons created from previous searches. 
 function getAPITest(city) {
@@ -97,13 +105,6 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
 
 }
 
-//would need to convert date from Unix from weather fetch instead of dayjs right now
-// function displayTime() {
-//     var todayDateTime = document.querySelector("#currentDate")
-//     var today = dayjs.unix()
-//     todayDateTime.textContent = today
-//   }
-
 var preSearchedCities = JSON.parse(localStorage.getItem("cityName")) || []
 
 function submitHandler(event){
@@ -116,10 +117,8 @@ function submitHandler(event){
     }
     saveSearchedCity();
     getAPITest(userInputEl.value);
-    //displayTime();
 }
 
-//Must have eventListener to add function to these buttons
 function displayPreSearchedCities(){
     for (var i = 0; i < preSearchedCities.length; i++) {
         var cityButton = document.createElement("button")
@@ -137,13 +136,8 @@ function searchAgain(event){
     getAPITest(event.target.textContent)
 }
 
-
-
 function saveSearchedCity(){
-    
-    
     localStorage.setItem("cityName", JSON.stringify(preSearchedCities))
     console.log(preSearchedCities)
     }
-
 submitBtnEl.addEventListener("submit", submitHandler)
