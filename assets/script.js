@@ -4,6 +4,9 @@ var userInputEl = document.querySelector("#userInput")
 var searchedCity = document.querySelector("#searchedCity")
 var geoLatitude = ""
 var geoLongitude = ""
+var tempNow = document.querySelector("#currentTemp")
+var humNow = document.querySelector("#currentHumidity")
+var windNow = document.querySelector("#currentWindSpeed")
 
 
 function getAPITest() {
@@ -15,7 +18,6 @@ function getAPITest() {
     .then(function(response){
         return response.json()
     }) .then(function(data){
-        console.log(data)
         for (var i = 0; i < data.length; i++) {
             geoLatitude = data[i].lat;
             geoLongitude = data[i].lon;
@@ -23,13 +25,29 @@ function getAPITest() {
             console.log(geoLongitude)
         } 
     }).then(function(){
-            getWeather()
+            getWeatherNow()
+            getWeather5()
         })
 }
-function getWeather(){
-var weatherUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&appid=42c66a48a76a8c63ca42a8a780c249a4"
 
-    fetch(weatherUrl)
+function getWeatherNow(){
+    var weatherNowUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
+
+    fetch(weatherNowUrl)
+    .then(function(response){
+        return response.json();
+    }) .then(function(data){
+        console.log(data);
+        tempNow.textContent = data.main.temp;
+        humNow.textContent = data.main.humidity;
+        windNow.textContent = data.wind.speed;
+    })
+}
+
+function getWeather5(){
+var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
+
+    fetch(weather5Url)
     .then(function(response){
         return response.json()
     }) .then(function(data){
