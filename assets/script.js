@@ -4,7 +4,7 @@ var submitBtnEl = document.querySelector("#form")
 var userInputEl = document.querySelector("#userInput")
 var searchedCity = document.querySelector("#searchedCity")
 var forecastDiv = document.querySelector("#forecastDiv")
-var iconNow = document.querySelector("#currentIcon")
+var icon = document.querySelector(".icon")
 var tempNow = document.querySelector("#currentTemp")
 var humNow = document.querySelector("#currentHumidity")
 var windNow = document.querySelector("#currentWindSpeed")
@@ -14,10 +14,12 @@ var geoLatitude = ""
 var geoLongitude = ""
 
 
-
+//Tutor Help From Faran Navazi to change parameters to city so that the function can pass through either the user input, or the buttons created from previous searches. 
 function getAPITest(city) {
     var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
-
+    
+    searchedCity.textContent = city
+    
     fetch(latLonCoordsURL)
     .then(function(response){
         return response.json()
@@ -46,7 +48,7 @@ function getWeatherNow(){
         var todayDateTime = document.querySelector("#currentDate")
         var today = dayjs.unix(data.dt)
         todayDateTime.textContent = today
-        iconNow.setAttribute("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`)
+        icon.setAttribute("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`)
         tempNow.textContent = data.main.temp;
         humNow.textContent = data.main.humidity;
         windNow.textContent = data.wind.speed;
@@ -61,7 +63,7 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
         return response.json()
     }) .then(function(data){
         console.log(data)
-        //tutor Assistance
+        //tutor Assistance from Faran Navazi
             forecastDiv.innerHTML = ""
         for (let j = 0; j < data.list.length; j++){
             if ((j === 6 ) ||
@@ -102,7 +104,7 @@ var preSearchedCities = JSON.parse(localStorage.getItem("cityName")) || []
 
 function submitHandler(event){
     event.preventDefault()
-    searchedCity.textContent = userInputEl.value
+    
     console.log(userInputEl.value)
     var exists = preSearchedCities.includes(userInputEl.value)
     if (!exists) {
