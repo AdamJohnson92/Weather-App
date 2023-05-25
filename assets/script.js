@@ -2,6 +2,7 @@ var aside = document.querySelector("aside")
 var submitBtnEl = document.querySelector("#form")
 var userInputEl = document.querySelector("#userInput")
 var searchedCity = document.querySelector("#searchedCity")
+var forecastDiv = document.querySelector("#forecastDiv")
 var geoLatitude = ""
 var geoLongitude = ""
 var tempNow = document.querySelector("#currentTemp")
@@ -18,12 +19,13 @@ function getAPITest() {
     .then(function(response){
         return response.json()
     }) .then(function(data){
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             geoLatitude = data[i].lat;
             geoLongitude = data[i].lon;
             console.log(geoLatitude)
             console.log(geoLongitude)
         } 
+        //assistance with chaining fetch requests courtesty of instructor Becky Goldstein
     }).then(function(){
             getWeatherNow()
             getWeather5()
@@ -46,24 +48,26 @@ function getWeatherNow(){
 
 function getWeather5(){
 var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
-
     fetch(weather5Url)
     .then(function(response){
         return response.json()
     }) .then(function(data){
         console.log(data)
+        for (let j = 0; j < 5; j+8){
+          var dynoBoxDiv = document.createElement("div")
+          dynoBoxDiv.setAttribute("class", "forecastItem") 
+          forecastDiv.appendChild(dynoBoxDiv) 
+        }
     })
 
 }
 
-
-
-
-// function getApi() {
-//     var latLonCoords = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityNameEl + "&limit=5&appid=42c66a48a76a8c63ca42a8a780c249a4";
-
-//     var requestUrl = "api.openweathermap.org/data/2.5/forecast?lat=" + cityLat + "&lon=" + cityLon + "&appid=42c66a48a76a8c63ca42a8a780c249a4"
-// }
+//would need to convert date from Unix from weather fetch instead of dayjs right now
+function displayTime() {
+    var todayDateTime = document.querySelector("#currentDate")
+    var today = dayjs().format('MMM DD, YYYY HH:mm a');
+    todayDateTime.textContent = today
+  }
 
 var preSearchedCities = JSON.parse(localStorage.getItem("cityName")) || []
 
@@ -72,15 +76,17 @@ function submitHandler(event){
     searchedCity.textContent = userInputEl.value
     console.log(userInputEl.value)
     preSearchedCities.push(userInputEl.value)
-    saveSearchedCity()
-    getAPITest()
+    saveSearchedCity();
+    getAPITest();
+    displayTime();
 }
 
+//Must have eventListener add function to these buttons
 function displayPreSearchedCities(){
     for (var i = 0; i < preSearchedCities.length; i++) {
         var cityButton = document.createElement("button")
-        var cityButtonText = document.createTextNode(localStorage.getItem(preSearchedCities[i])) 
-        cityButton.appendChild(cityButtonText)
+        var cityButtonText = preSearchedCities[i]
+        cityButton.textContent = cityButtonText
         aside.appendChild(cityButton)
       } 
 }
