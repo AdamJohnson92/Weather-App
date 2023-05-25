@@ -16,7 +16,7 @@ var geoLongitude = ""
 
 function displayTime() {
     var localDateTime = document.querySelector("#localDateTime")
-    var today = dayjs().format('MMM DD, YYYY HH:mm:ss');
+    var today = dayjs().format('MMM DD, YYYY HH:mm');
     localDateTime.textContent = today
   }
 
