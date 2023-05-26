@@ -20,7 +20,7 @@ Any city that is searched through the app is added to local storage where it wil
 
 ## Credits
 
-Assistance with the applications development is courtesy of BCS instructor Rebecca Goldstein with regards to chaining fetch requests together by calling a second or third fetch request within a .then statement of the first fetch request. Additional assistance courtesy of BCS tutor Faran Navazi regarding clearing the dynamically generated divs with .innerHTML = "" to search another city without reloading the page. Faran also assisted with applying the event.target functionality to the previously-searched-city buttons so that they can also run the original fetch requests using the value of the text content. Faran also helped to make sure that only unique city names are pushed to the localStorage array.
+Assistance with the applications development is courtesy of BCS instructor Rebecca Goldstein with regards to chaining fetch requests together by calling a second or third fetch request within a .then statement of the first fetch request. Additional assistance courtesy of BCS tutor Faran Navazi regarding clearing the dynamically generated divs with .innerHTML = "" to search another city without reloading the page. Faran also assisted with applying the event.target functionality to the previously-searched-city buttons so that they can also run the original fetch requests using the value of the text content. Faran also helped to make sure that only unique city names are pushed to the localStorage array, as well as helping with getting the weather icons to display on the page.
 
 ## License
 

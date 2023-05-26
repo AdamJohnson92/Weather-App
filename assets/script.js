@@ -94,6 +94,7 @@ var weather5Url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + geoL
           dynoDate.textContent = "Date: " + data.list[j].dt_txt
           var dynoIcon = document.createElement("img")
           dynoIcon.setAttribute("id", "forecastItemIcon")
+                    //assistance from tutor Faran Navazi to get the icon to display
           dynoIcon.setAttribute("src", `https://openweathermap.org/img/wn/${data.list[j].weather[0].icon}@2x.png`)
           var dynoTemp = document.createElement("p")
           dynoTemp.textContent = "Temperature: " + data.list[j].main.temp + " °F"
