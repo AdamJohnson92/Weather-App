@@ -28,7 +28,7 @@ function displayTime() {
 
                 //Tutor Help From Faran Navazi to change parameters to city so that the function can pass through either the user input, or the buttons created from previous searches. 
 function getAPITest(city) {
-    var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
+    var latLonCoordsURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
     
     searchedCity.textContent = city
     
