@@ -28,7 +28,7 @@ function displayTime() {
 
                 //Tutor Help From Faran Navazi to change parameters to city so that the function can pass through either the user input, or the buttons created from previous searches. 
 function getAPITest(city) {
-    var latLonCoordsURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
+    var latLonCoordsURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=1&appid=42c66a48a76a8c63ca42a8a780c249a4";
     
     searchedCity.textContent = city
     
@@ -37,6 +37,7 @@ function getAPITest(city) {
         return response.json()
     }) .then(function(data){
         for (let i = 0; i < data.length; i++) {
+            console.log(data)
             geoLatitude = data[i].lat;
             geoLongitude = data[i].lon;
             console.log(geoLatitude)
@@ -70,7 +71,7 @@ function getWeatherNow(){
 
 //This function pulls the weather data for the next 5 days and dynamically creates the elements that the data will be displayed in.
 function getWeather5(){
-var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
+var weather5Url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + geoLatitude + "&lon=" + geoLongitude + "&units=imperial&appid=42c66a48a76a8c63ca42a8a780c249a4"
     
     fetch(weather5Url)
     .then(function(response){
@@ -82,7 +83,7 @@ var weather5Url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + geoLa
             forecastDiv.innerHTML = ""
 
         for (let j = 0; j < data.list.length; j++){
-            if ((j === 6 ) ||
+            if ((j === 6) ||
             (j === 14) ||
             (j === 22) ||
             (j === 30) ||
