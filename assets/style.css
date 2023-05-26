@@ -127,3 +127,86 @@ p{
     width:25px;
     height: 25px;
 }
+
+@media screen and (max-width: 992px){
+    
+    body{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        padding: 2px;
+        margin: 2px;
+    }
+
+    header{
+        display: flex;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1{
+        font-size: 20px;
+    }
+    h2{
+        font-size: 12px;
+    }
+
+    aside{
+        position: relative;
+        height: 100px;
+    }
+
+    button{
+        font-size: 8px;
+        margin: 2px;
+    }
+
+    label{
+        font-size: 14px;
+        text-align: center;
+    }
+
+    #form {
+        padding: 0;
+        margin: 0;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+    }
+
+    #userInput{
+        padding: 0;
+        margin: 0;
+        width: 90%;
+    }
+
+    #results{
+        display: flex;
+        flex-direction: column;
+        height:auto;
+        position: relative;
+        top:400px;
+    }
+
+    #forecastDiv{
+        display: flex;
+        flex-direction: column;
+    }
+
+    p{
+        font-size: 12px;
+    }
+    #nowWeather{
+        height: 150px;
+      }
+
+    .forecastItem{
+        height: 150px;
+    }
+}
